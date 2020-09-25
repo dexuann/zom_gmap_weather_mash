@@ -1,0 +1,64 @@
+extends layout
+
+block content
+  h1 Zomato, Google Maps and OpenWeather API Mashup
+  p Search for the top 10 restaurants of a specific cuisine in a city and get its current weather condition!
+  #search
+    form(method='get', action='/')
+      label(style='display: block;') Location
+      script.
+      document.getElementById(style='display: block; margin: 14px 0;').innerHTML #{city}
+      label(style='margin: 15px 0; display: block;') Weather
+      script.
+      document.getElementById(style='display: block; margin: 14px 0;').innerHTML Forecast: #{forecast}, Temp: #{temp}(c), Humidity: #{humidity}%, Wind: #{wind}km/h
+      input(type='submit', value='Another search')
+  #mapResult
+    script.
+      function initMap(){
+
+      //get search data
+      let combined = !{JSON.stringify(combinedDataJSON)};
+
+      //new map options
+      let options = {
+      zoom:12,
+      center:{lat:combined.lat, lng:combined.long}
+      }
+
+      //new map
+      let map = new google.maps.Map(document.getElementById('mapResult'), options);
+
+      //create array to contain markers
+      let markers = new Array(combined.restaurantCount);
+
+      //add markers
+      for(let i = 0;i < markers.length;i++){
+      addMarker({
+      coords:{lat:parseFloat(combined.restaurantLat[i]),lng:parseFloat(combined.restaurantLong[i])},
+      content:'<h1>' + combined.name[i] + '</h1>' +
+      '<h2>' + combined.address[i] + '</h2>' +
+      '<h3>Hours: ' + combined.opHours[i] + '</h3>' +
+      '<h3>Average price for two: $' + combined.avgCost[i] + '</h3>' +
+      '<h3>Rating: ' + combined.rating[i] + '/5</h3>' +
+      '<h3>Contact: ' + combined.phone[i] + '</h3>'
+      })
+      }
+
+      //add Marker Function
+      function addMarker(props){
+      let marker = new google.maps.Marker({
+      position:props.coords,
+      map:map,
+      });
+        //check if marker has content
+        if(props.content){
+        let infoWindow = new google.maps.InfoWindow({
+        content:props.content
+        });
+        marker.addListener('click', function(){
+        infoWindow.open(map, marker);
+        });
+        }
+      }
+      }
+    script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBDTn41euqhPm4EL6TGYKhqyTPGNdeJZxk&callback=initMap')

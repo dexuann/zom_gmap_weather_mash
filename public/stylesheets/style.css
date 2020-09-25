@@ -1,0 +1,55 @@
+body {
+  padding: 40px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #858c4c;
+}
+
+#search{
+  float:left;
+  position: relative;
+  height:165px;
+  width:450px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 15px;
+}
+
+#mapHome{
+  left: 20px;
+  height:500px;
+  width:910px;
+}
+
+#mapResult{
+  left: 20px;
+  height:500px;
+  width:910px;
+}
+
+input[type=text], select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 6px 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}

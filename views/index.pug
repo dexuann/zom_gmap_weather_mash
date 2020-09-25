@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1 Zomato, Google Maps and OpenWeather API Mashup
+  p Search for top 10 restaurants of a specific cuisine in a city and get its current weather condition!
+  #search
+    form(method='post', action='/search')
+      label Location
+      input#locationNameDiv(type='text', name='inputLocation', placeholder='Location (E.g. Gold Coast or Chermside Brisbane)')
+      label Cuisine
+      input#cuisineNameDiv(type='text', name='inputCuisine', placeholder='Cuisine (E.g. Ramen or Korean)')
+      input(type='submit', value='Search')
+  #mapHome
+    script(src='/javascripts/gmapHome.js')
+    script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBDTn41euqhPm4EL6TGYKhqyTPGNdeJZxk&callback=initMap')
